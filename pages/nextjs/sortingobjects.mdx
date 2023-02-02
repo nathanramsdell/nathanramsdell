@@ -1,0 +1,224 @@
+# Sorting Objects
+
+## Introduction
+
+How can we sort an object based on a specific key? On this page you will find out how to fetch an api and alter the returned JSON into an organized object.
+
+## Approach
+Here are the steps we will take to complete this task
+
+1) Fetch the API in a [`getServerSideProps(){:jsx}`](https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props) function.
+2) Create a function to handle the sorting. Lets call it `getBrandsByCategory(brands){:js}`. This function will take in the data from the api we just fetched.
+3) Create a variable with an empty object to use as we loop through the object. Lets use `const brandsByCategory = {}{:js}`.
+4) Render the newly organized object onto the page with jsx.
+
+### Fetching the data
+
+For this example we will be calling our api endpoint within NextJs `getServerSideProps(){:jsx}` function. This will fetch our data at request tiem and pre-render the result.
+
+```js filename="brands.js" copy
+export async function getServerSideProps() {
+  // Fetch data from external API
+  const res = await fetch('https://.../data)
+  const brands = await res.json()
+
+  // Return brands to the page via props
+  return {props: {brands}}
+}
+```
+
+We then want to make sure that the prop is passed to the page.
+
+```js filename="brands.js" {1-3} copy
+export default function Page({ brands }) {
+  // Render brands...
+}
+
+// This get called on every request
+export async function getServerSideProps() {
+  // Fetch data from external API
+  const res = await fetch('https://.../data)
+  const brands = await res.json()
+
+  // Return brands to the page via props
+  return {props: {brands}}
+}
+```
+
+### Sorting the data
+
+In order to know how to sort the data lets first look at it.
+
+```json filename="brands.json"
+{
+  objects: [
+    {
+      content: "",
+      title: "",
+      category: "cat1",
+    },
+    {
+      content: "",
+      title: "",
+      category: "cat2",
+    }
+  ]
+}
+```
+
+Now lets create the function that will sort this data based on the category key. We are going to want an empty object to store data in as we loop through this data. The initial function will look like so:
+
+```js filename="brands.js" {3-8} copy
+export default function Page({ brands }) {
+
+  function getBrandsByCategory(brands) {
+    const brandsByCategory = {}
+
+    // loop through data and store into brandsByCategory
+
+  }
+}
+```
+Now lets loop through the object and return
+
+```js filename="brands.js" {5-16} copy
+export default function Page({ brands }) {
+
+  function getBrandsByCategory(brands) {
+    const brandsByCategory = {}
+    brands.forEach(brand => {
+      // check to see if current brand category is present
+      if(brandsByCategory.hasOwnProperty(brand.category)) {
+        // if true push brand object at that specific category
+        brandsByCategory[brand.category].push(brand)
+      } else {
+        // if false create a new category with that brand in it
+        brandsByCategory[brand.category] = [brand]
+      }
+    });
+    return brandsByCategory
+  }
+}
+```
+
+Awesome! Lets call the function and save it in a variable.
+
+```js filename="brands.js" {2} copy
+export default function Page({ brands }) {
+  const brandsByCategory = getBrandsByCategory(brands);
+
+  function getBrandsByCategory(brands) {
+    const brandsByCategory = {}
+    brands.forEach(brand => {
+      // check to see if current brand category is present
+      if(brandsByCategory.hasOwnProperty(brand.category)) {
+        // if true push brand object at that specific category
+        brandsByCategory[brand.category].push(brand)
+      } else {
+        // if false create a new category with that brand in it
+        brandsByCategory[brand.category] = [brand]
+      }
+    });
+    return brandsByCategory
+  }
+}
+```
+
+### Render the jsx
+Now that we have our data organized we can render it to the page.
+
+```js filename="brands.js" {18-38} copy
+export default function Page({ brands }) {
+  const brandsByCategory = getBrandsByCategory(brands);
+
+  function getBrandsByCategory(brands) {
+    const brandsByCategory = {}
+    brands.forEach(brand => {
+      // check to see if current brand category is present
+      if(brandsByCategory.hasOwnProperty(brand.category)) {
+        // if true push brand object at that specific category
+        brandsByCategory[brand.category].push(brand)
+      } else {
+        // if false create a new category with that brand in it
+        brandsByCategory[brand.category] = [brand]
+      }
+    });
+    return brandsByCategory
+  }
+  return (
+    <>
+      <main>
+        // Loop through object and return 
+        {Object.entries(brandsByCategory).map((brands, index) => {
+          return (
+            <div key={index}>
+              // Show case the category
+              <h2>{brands[0]}</h2>
+              // map through category with all brands in category
+              {brands[1].map((brand, index) => {
+                return (
+                  <p key={index}>{brand.title}</p>
+                )
+              })}
+            </div>
+          )
+        })}
+      </main>
+    </>
+  )
+}
+```
+
+## Full Page
+
+```js filename="brands.js" copy
+export default function Page({ brands }) {
+  const brandsByCategory = getBrandsByCategory(brands);
+
+  function getBrandsByCategory(brands) {
+    const brandsByCategory = {}
+    brands.forEach(brand => {
+      // check to see if current brand category is present
+      if(brandsByCategory.hasOwnProperty(brand.category)) {
+        // if true push brand object at that specific category
+        brandsByCategory[brand.category].push(brand)
+      } else {
+        // if false create a new category with that brand in it
+        brandsByCategory[brand.category] = [brand]
+      }
+    });
+    return brandsByCategory
+  }
+  return (
+    <>
+      <main>
+        // Loop through object and return 
+        {Object.entries(brandsByCategory).map((brands, index) => {
+          return (
+            <div key={index}>
+              // Show case the category
+              <h2>{brands[0]}</h2>
+              // map through category with all brands in category
+              {brands[1].map((brand, index) => {
+                return (
+                  <p key={index}>{brand.title}</p>
+                )
+              })}
+            </div>
+          )
+        })}
+      </main>
+    </>
+  )
+}
+
+export async function getServerSideProps() {
+  // Fetch data from external API
+  const res = await fetch('https://.../data)
+  const brands = await res.json()
+
+  // Return brands to the page via props
+  return {props: {brands}}
+}
+```
+

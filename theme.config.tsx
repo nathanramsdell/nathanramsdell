@@ -9,7 +9,7 @@ const config: DocsThemeConfig = {
   chat: {
     link: 'https://discord.com',
   },
-  docsRepositoryBase: 'https://github.com/nathanramsdell/nathanramsdell',
+  docsRepositoryBase: 'https://github.com/nathanramsdell/nathanramsdell/tree/main',
   footer: {
     text: "Nathan Ramsdell's Documentation",
   },
