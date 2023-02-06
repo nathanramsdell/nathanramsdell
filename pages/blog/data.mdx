@@ -1,0 +1,59 @@
+# Fetching Posts
+
+None of our components will work if we don't have data to pass to it. We will be utilizing a free api for dummy json called [Dummy JSON](https://dummyjson.com/).
+
+## Fetch
+1. We can create a function that will handle our posts fetch call. Since this is only an example project, we will not be doing any error handling. I would normally wrap this API call in a ```try{ } catch () { }``` block. We can create a ```load-posts()``` function and place it in ```/lib/load-posts.js```. It would look something like this.
+    ```js filename="/lib/load-posts.js" copy
+    export async function loadPosts() {
+    // Calling external api
+    const res = await fetch('https://dummyjson.com/posts?limit=0')
+    const posts = await res.json()
+    
+    return posts
+    }
+    ```
+
+2. Then lets call this function in a ```getStaticProps()``` function in our ```/pages/index.js``` page and return the post data.
+    ```js filename="/pages/index.js" copy
+    export async function getStaticProps() {
+        // we dont have to fetch our api but instead call it here
+        const posts = await loadPosts()
+
+        return { props: { posts }}
+    }
+    ```
+    The data returned will look something like this.
+    ```json
+        {
+        "posts": [
+            {
+                "id": 1,
+                "title": "His mother had always taught him",
+                "body": "His mother had always taught him not to ever think of himself as better than others. He'd tried to live by this motto. He never looked down on those who were less fortunate or who had less money than him. But the stupidity of the group of people he was talking to made him change his mind.",
+                "userId": 9,
+                "tags": [
+                    "history",
+                    "american",
+                    "crime"
+                ],
+                "reactions": 2
+            },
+            {
+                "id": 2,
+                "title": "He was an expert but not in a discipline",
+                "body": "He was an expert but not in a discipline that anyone could fully appreciate. He knew how to hold the cone just right so that the soft server ice-cream fell into it at the precise angle to form a perfect cone each and every time. It had taken years to perfect and he could now do it without even putting any thought behind it.",
+                "userId": 13,
+                "tags": [
+                    "french",
+                    "fiction",
+                    "english"
+                ],
+                "reactions": 2
+            }       
+        ],
+        "total": 150,
+        "skip": 0,
+        "limit": 2
+        }
+    ```

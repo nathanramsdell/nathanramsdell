@@ -1,0 +1,162 @@
+# Prepping
+In order to prep for this site for a smooth build, I wanted to break down my design into a few different components.
+* Navigation bar
+* Hero section
+* Featured Posts
+* Posts Grid
+  * Post Item
+  * Category Tags
+* Pagination
+* Footer
+
+
+## Gathering Assets
+Next, we need to gather all the assets needed for this page. Since I am using dummy json as my blog posts, I have no option for post images. To get around this, I will select a random image to use for all blog posts. If this were pulling in real blog posts, there would be an src attribute being returned from my selected CMS. All of the page links will be made in a local data object for now.
+
+**In a real world example, this would also contain some other keys such as a href value.**
+
+If this data were fetched from a CMS that did not organize the links by category we could follow the guide written here to organze the data by category. [Sorting Objects](/nextjs/sortingobjects)
+```js filename="src/footerLinks.js" copy
+export const footerLinks = [
+    {
+        category: "Product",
+        links: [
+            {
+                link: "Overview"
+            },
+            {
+                link: "Features"
+            },
+            {
+                link: "Solutions"
+            },
+            {
+                link: "Tutorials"
+            },
+            {
+                link: "Pricing"
+            },
+            {
+                link: "Releases"
+            },
+        ]
+    },
+    {
+        category: "Company",
+        links: [
+            {
+                link: "About Us"
+            },
+            {
+                link: "Careers"
+            },
+            {
+                link: "Press"
+            },
+            {
+                link: "News"
+            },
+            {
+                link: "Media kit"
+            },
+            {
+                link: "Contact"
+            },
+        ]
+    },
+    {
+        category: "Resources",
+        links: [
+            {
+                link: "Blog"
+            },
+            {
+                link: "Newsletter"
+            },
+            {
+                link: "Events"
+            },
+            {
+                link: "Help Center"
+            },
+            {
+                link: "Tutorials"
+            },
+            {
+                link: "Support"
+            },
+        ]
+    },
+    {
+        category: "Use Cases",
+        links: [
+            {
+                link: "Startups"
+            },
+            {
+                link: "Enterprise"
+            },
+            {
+                link: "Government"
+            },
+            {
+                link: "SaaS"
+            },
+            {
+                link: "Marketplace"
+            },
+            {
+                link: "Ecommerce"
+            },
+        ]
+    },
+    {
+        category: "Social",
+        links: [
+            {
+                link: "Twitter"
+            },
+            {
+                link: "LinkedIn"
+            },
+            {
+                link: "Facebook"
+            },
+            {
+                link: "GitHub"
+            },
+            {
+                link: "AngelList"
+            },
+            {
+                link: "Dribbble"
+            },
+        ]
+    },
+    {
+        category: "Legal",
+        links: [
+            {
+                link: "Terms"
+            },
+            {
+                link: "Privacy"
+            },
+            {
+                link: "Cookies"
+            },
+            {
+                link: "Licenses"
+            },
+            {
+                link: "Settings"
+            },
+            {
+                link: "Contact"
+            },
+        ]
+    }
+]
+```
+
+

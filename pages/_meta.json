@@ -1,10 +1,7 @@
 {
   "index": "Introduction",
-  "nextjs": "NextJs",
-  "about": {
-    "title": "About",
-    "type": "page"
-  },
+  "nextjs": "Next.js",
+  "blog": "Next.js Blog",
   "contact": {
     "title": "Contact ↗",
     "type": "page",
