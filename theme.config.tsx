@@ -12,7 +12,8 @@ const config: DocsThemeConfig = {
   docsRepositoryBase: 'https://github.com/nathanramsdell/nathanramsdell/tree/main',
   footer: {
     text: "Nathan Ramsdell's Documentation",
-  },
+  }
 }
 
 export default config
+
