@@ -1,0 +1,33 @@
+# Recursion
+
+## Countdown
+
+```js copy
+// logs the numbers from 20 to 1 
+function descendingNumber(startNumber){
+    let nextNumber = startNumber - 1
+    if (startNumber > 0){
+        console.log(startNumber)
+        descendingNumber(nextNumber)
+    }
+}
+descendingNumber(20)
+```
+
+## Reverse a string
+```js copy
+// Reverse a string using recursion
+let str = "Hello World"
+
+const reverseString = text => {
+    // Condition to end recusion
+    if (text.length == 1){
+        return text
+    }
+    else {
+        return text.slice(-1) + reverseString(text.slice(0, -1))
+    }
+}
+    
+reverseString(str)
+```

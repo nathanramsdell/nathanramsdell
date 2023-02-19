@@ -1,0 +1,97 @@
+# Two Sum - Easy
+
+
+
+
+## Approach
+The way I approached this problem was by first coming up with a solution to see what numbers we were looking for. My initial thought was to loop through the the given `nums{:js}` array and check running a simple check if the array contians the necessary value. I then relaized that my proposed solution would take up too much time iterating through each number and would also cause a lot of repeating actions.
+
+I instead opted to create a Map() to store the key value pairs of index and value. I wanted to use `Map(){:js}` since I can utilize its .has() function to check if the Map contains the value im looking for while I iterate through the array. This means that I only have to iterate once through the `nums` array. 
+
+```js {3} copy
+var twoSum = function(nums, target) {  
+    // Declaring a new Map
+    const seen = new Map()
+};
+```
+
+Now all we have to do is create a for loop and iterate through the nums array and check if out `seen` Map() contains the value we are looking for. If it does we can return the function with the `[index, seen.get(lookingFor)]{:js}`. 
+
+```js {9} copy
+var twoSum = function(nums, target) {  
+    // Declaring a new set
+    const seen = new Map()
+
+    //Looping through givin array
+    for(let i = 0; i < nums.length; i++){
+        const lookingFor = target - nums[i]
+        if(seen.has(lookingFor)){
+            return [[i], seen.get(lookingFor)]
+        }   
+    }
+};
+```
+
+If it wasn't found add the current key value pairs to our map.
+
+```js {11} copy
+var twoSum = function(nums, target) {  
+    // Declaring a new set
+    const seen = new Map()
+
+    //Looping through givin array
+    for(let i = 0; i < nums.length; i++){
+        const lookingFor = target - nums[i]
+        if(seen.has(lookingFor)){
+            return [[i], seen.get(lookingFor)]
+        }  
+        seen.set(nums[i], i)  
+    }
+};
+```
+
+After the iteration, if no pairs are found return and empty array
+```js {13} copy
+var twoSum = function(nums, target) {  
+    // Declaring a new set
+    const seen = new Map()
+
+    //Looping through givin array
+    for(let i = 0; i < nums.length; i++){
+        const lookingFor = target - nums[i]
+        if(seen.has(lookingFor)){
+            return [[i], seen.get(lookingFor)]
+        }  
+        seen.set(nums[i], i)  
+    }
+    return []
+};
+```
+
+## Complexity
+
+### Time Complexity
+O(n) - worse case, there are no pairs and we have to iterate over every single item; fetching items from a map is O(1)
+
+### Space Complexity
+O(n) - we are using map to store the pairs
+
+## Code
+
+```js copy
+var twoSum = function(nums, target) {  
+    // Declaring a new set
+    const seen = new Map()
+
+    //Looping through givin array
+    for(let i = 0; i < nums.length; i++){
+        const lookingFor = target - nums[i]
+        if(seen.has(lookingFor)){
+            return [[i], seen.get(lookingFor)]
+        }  
+        seen.set(nums[i], i)  
+    }
+    return []
+
+};
+```

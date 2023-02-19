@@ -2,6 +2,8 @@
   "index": "Introduction",
   "nextjs": "Next.js",
   "blog": "Next.js Blog",
+  "daily-leetcode": "Daily LeetCode",
+  "recursion": "Recusion",
   "contact": {
     "title": "Contact ↗",
     "type": "page",
